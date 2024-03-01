@@ -5,30 +5,30 @@
     "loglevel": "warning"
   },
   "dns": {
-        "servers": [
-            "8.8.8.8",
-            "8.8.4.4"
-        ]
+    "servers": [
+        "8.8.8.8",
+        "8.8.4.4"
+    ]
   },
   "inbounds": [
       {
-      "listen": "127.0.0.1",
+      "listen": "0.0.0.0",
       "port": 10085,
       "protocol": "dokodemo-door",
       "settings": {
-        "address": "127.0.0.1"
+        "address": "0.0.0.0"
       },
       "tag": "api"
     },
    {
-     "listen": "127.0.0.1",
+     "listen": "0.0.0.0",
      "port": "14016",
      "protocol": "vless",
       "settings": {
           "decryption":"none",
             "clients": [
                {
-                 "id": "0db1b668-8506-4620-96f2-841cec687eb0"
+                 "id": "secret-yeah"
              }
           ]
        },
@@ -40,13 +40,13 @@
         }
      },
      {
-     "listen": "127.0.0.1",
+     "listen": "0.0.0.0",
      "port": "23456",
      "protocol": "vmess",
       "settings": {
             "clients": [
                {
-                 "id": "0db1b668-8506-4620-96f2-841cec687eb0",
+                 "id": "secret-yeah",
                  "alterId": 0
              }
           ]
@@ -59,15 +59,27 @@
         }
      },
     {
-      "listen": "127.0.0.1",
+      "listen": "0.0.0.0",
       "port": "25432",
       "protocol": "trojan",
       "settings": {
           "decryption":"none",		
-           "clients": [
-              {
-                 "password": "0db1b668-8506-4620-96f2-841cec687eb0"
-              }
+          "clients": [
+            {
+               "password": "1a01aa40-8d92-4b6c-9376-538e386cad78"
+            },
+            {
+               "password": "2wsx1qaz",
+               "email": "saturm"
+            },
+            {
+               "password": "hghghghghg",
+               "email": "ggwp"
+            },
+            {
+               "password": "2wsx1qaz",
+               "email": "carakan"
+            }
           ],
          "udp": true
        },
@@ -79,14 +91,14 @@
          }
      },
     {
-         "listen": "127.0.0.1",
+         "listen": "0.0.0.0",
         "port": "30300",
         "protocol": "shadowsocks",
         "settings": {
            "clients": [
            {
-           "method": "aes-128-gcm",
-          "password": "0db1b668-8506-4620-96f2-841cec687eb0"
+            "method": "aes-128-gcm",
+            "password": "secret-yeah"
            }
           ],
           "network": "tcp,udp"
@@ -99,14 +111,14 @@
         }
      },	
       {
-        "listen": "127.0.0.1",
+        "listen": "0.0.0.0",
      "port": "24456",
         "protocol": "vless",
         "settings": {
          "decryption":"none",
            "clients": [
              {
-               "id": "0db1b668-8506-4620-96f2-841cec687eb0"
+               "id": "secret-yeah"
              }
           ]
        },
@@ -118,13 +130,13 @@
         }
      },
      {
-      "listen": "127.0.0.1",
+      "listen": "0.0.0.0",
      "port": "31234",
      "protocol": "vmess",
       "settings": {
             "clients": [
                {
-                 "id": "0db1b668-8506-4620-96f2-841cec687eb0",
+                 "id": "secret-yeah",
                  "alterId": 0
              }
           ]
@@ -137,14 +149,14 @@
         }
      },
      {
-        "listen": "127.0.0.1",
+        "listen": "0.0.0.0",
      "port": "33456",
         "protocol": "trojan",
         "settings": {
           "decryption":"none",
              "clients": [
                {
-                 "password": "0db1b668-8506-4620-96f2-841cec687eb0"
+                 "password": "secret-yeah"
                }
            ]
         },
@@ -156,14 +168,14 @@
       }
    },
    {
-    "listen": "127.0.0.1",
+    "listen": "0.0.0.0",
     "port": "30310",
     "protocol": "shadowsocks",
     "settings": {
         "clients": [
           {
              "method": "aes-128-gcm",
-             "password": "0db1b668-8506-4620-96f2-841cec687eb0"
+             "password": "secret-yeah"
            }
          ],
            "network": "tcp,udp"
