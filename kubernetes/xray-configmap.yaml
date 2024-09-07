@@ -1,0 +1,259 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-xray
+data:
+  config.json: |
+    {
+      "log" : {
+        "access": "/var/log/xray/access.log",
+        "error": "/var/log/xray/error.log",
+        "loglevel": "warning"
+      },
+      "dns": {
+        "servers": [
+            "8.8.8.8",
+            "8.8.4.4"
+        ]
+      },
+      "inbounds": [
+          {
+          "listen": "0.0.0.0",
+          "port": 10085,
+          "protocol": "dokodemo-door",
+          "settings": {
+            "address": "0.0.0.0"
+          },
+          "tag": "api"
+        },
+      {
+        "listen": "0.0.0.0",
+        "port": "14016",
+        "protocol": "vless",
+          "settings": {
+              "decryption":"none",
+                "clients": [
+                  {
+                    "id": "secret-yeah"
+                }
+              ]
+          },
+          "streamSettings":{
+            "network": "ws",
+                "wsSettings": {
+                    "path": "/vless"
+              }
+            }
+        },
+        {
+        "listen": "0.0.0.0",
+        "port": "23456",
+        "protocol": "vmess",
+          "settings": {
+                "clients": [
+                  {
+                    "id": "secret-yeah",
+                    "alterId": 0
+                }
+              ]
+          },
+          "streamSettings":{
+            "network": "ws",
+                "wsSettings": {
+                    "path": "/vmess"
+              }
+            }
+        },
+        {
+          "listen": "0.0.0.0",
+          "port": "25432",
+          "protocol": "trojan",
+          "settings": {
+              "decryption":"none",		
+              "clients": [
+                {
+                  "password": "1a01aa40-8d92-4b6c-9376-538e386cad78"
+                },
+                {
+                  "password": "hghghghghg",
+                  "email": "ggwp"
+                }
+              ],
+            "udp": true
+          },
+          "streamSettings":{
+              "network": "ws",
+              "wsSettings": {
+                  "path": "/trojan-ws"
+                }
+            }
+        },
+        {
+            "listen": "0.0.0.0",
+            "port": "30300",
+            "protocol": "shadowsocks",
+            "settings": {
+              "clients": [
+              {
+                "method": "aes-128-gcm",
+                "password": "secret-yeah"
+              }
+              ],
+              "network": "tcp,udp"
+          },
+          "streamSettings":{
+              "network": "ws",
+                "wsSettings": {
+                  "path": "/ss-ws"
+              }
+            }
+        },	
+          {
+            "listen": "0.0.0.0",
+        "port": "24456",
+            "protocol": "vless",
+            "settings": {
+            "decryption":"none",
+              "clients": [
+                {
+                  "id": "secret-yeah"
+                }
+              ]
+          },
+              "streamSettings":{
+                "network": "grpc",
+                "grpcSettings": {
+                    "serviceName": "vless-grpc"
+              }
+            }
+        },
+        {
+          "listen": "0.0.0.0",
+        "port": "31234",
+        "protocol": "vmess",
+          "settings": {
+                "clients": [
+                  {
+                    "id": "secret-yeah",
+                    "alterId": 0
+                }
+              ]
+          },
+          "streamSettings":{
+            "network": "grpc",
+                "grpcSettings": {
+                    "serviceName": "vmess-grpc"
+              }
+            }
+        },
+        {
+            "listen": "0.0.0.0",
+        "port": "33456",
+            "protocol": "trojan",
+            "settings": {
+              "decryption":"none",
+                "clients": [
+                  {
+                    "password": "secret-yeah"
+                  }
+              ]
+            },
+            "streamSettings":{
+            "network": "grpc",
+              "grpcSettings": {
+                  "serviceName": "trojan-grpc"
+            }
+          }
+      },
+      {
+        "listen": "0.0.0.0",
+        "port": "30310",
+        "protocol": "shadowsocks",
+        "settings": {
+            "clients": [
+              {
+                "method": "aes-128-gcm",
+                "password": "secret-yeah"
+              }
+            ],
+              "network": "tcp,udp"
+          },
+        "streamSettings":{
+        "network": "grpc",
+            "grpcSettings": {
+              "serviceName": "ss-grpc"
+              }
+          }
+        }	
+      ],
+      "outbounds": [
+        {
+          "protocol": "freedom",
+          "settings": {}
+        },
+        {
+          "protocol": "blackhole",
+          "settings": {},
+          "tag": "blocked"
+        }
+      ],
+      "routing": {
+        "rules": [
+          {
+            "type": "field",
+            "ip": [
+              "0.0.0.0/8",
+              "10.0.0.0/8",
+              "100.64.0.0/10",
+              "169.254.0.0/16",
+              "172.16.0.0/12",
+              "192.0.0.0/24",
+              "192.0.2.0/24",
+              "192.168.0.0/16",
+              "198.18.0.0/15",
+              "198.51.100.0/24",
+              "203.0.113.0/24",
+              "::1/128",
+              "fc00::/7",
+              "fe80::/10"
+            ],
+            "outboundTag": "blocked"
+          },
+          {
+            "inboundTag": [
+              "api"
+            ],
+            "outboundTag": "api",
+            "type": "field"
+          },
+          {
+            "type": "field",
+            "outboundTag": "blocked",
+            "protocol": [
+              "bittorrent"
+            ]
+          }
+        ]
+      },
+      "stats": {},
+      "api": {
+        "services": [
+          "StatsService"
+        ],
+        "tag": "api"
+      },
+      "policy": {
+        "levels": {
+          "0": {
+            "statsUserDownlink": true,
+            "statsUserUplink": true
+          }
+        },
+        "system": {
+          "statsInboundUplink": true,
+          "statsInboundDownlink": true,
+          "statsOutboundUplink" : true,
+          "statsOutboundDownlink" : true
+        }
+      }
+    }

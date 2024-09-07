@@ -7,7 +7,7 @@
 # https://github.com/v2fly/domain-list-community
 
 FROM alpine:latest
-LABEL maintainer="Teddysun <i@teddysun.com>"
+LABEL maintainer="bt66"
 
 WORKDIR /root
 COPY xray.sh /root/xray.sh
@@ -22,5 +22,5 @@ RUN set -ex \
 	&& wget -O /usr/share/xray/geoip.dat https://github.com/v2fly/geoip/releases/latest/download/geoip.dat
 
 VOLUME /etc/xray
-ENV TZ=Asia/Shanghai
+ENV TZ=Asia/Jakarta
 CMD [ "/usr/bin/xray", "-config", "/etc/xray/config.json" ]

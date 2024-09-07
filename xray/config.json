@@ -67,18 +67,6 @@
           "clients": [
             {
                "password": "1a01aa40-8d92-4b6c-9376-538e386cad78"
-            },
-            {
-               "password": "2wsx1qaz",
-               "email": "saturm"
-            },
-            {
-               "password": "hghghghghg",
-               "email": "ggwp"
-            },
-            {
-               "password": "2wsx1qaz",
-               "email": "carakan"
             }
           ],
          "udp": true
